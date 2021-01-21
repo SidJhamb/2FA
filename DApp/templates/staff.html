@@ -1,0 +1,333 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="apple-touch-icon" href="icon.png">
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+    <!-- <script src="{{url_for('static',filename='web3.min.js')}}"></script> -->
+    <script defer="defer" src="{{url_for('static',filename='staff.js')}}"></script>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.1/build/alertify.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.1.0/q.js"></script> -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.1/build/css/alertify.min.css" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.1/build/css/themes/default.min.css" />
+    <style type="text/css">
+    .pusher {
+        padding-top: 100px;
+    }
+
+    #pushsystems {
+        width: 500px;
+    }
+
+    #pushrequests {
+        width: 500px;
+    }
+
+    #sync {
+        margin-left: 510px;
+    }
+
+    #sync1 {
+        margin-top: 0px;
+        margin-left: 510px;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="ui left thin visible vertical inverted sidebar menu">
+        <div class="item">
+            Register
+            <div class="menu">
+                <a class="item" id="registersystem">Register System</a>
+                <a class="item" id="registeruser">Register User</a>
+            </div>
+        </div>
+        <div class="item">
+            Requests
+            <div class="menu">
+                <a class="item" id="currentrequests">Current Requests</a>
+            </div>
+        </div>
+        <div class="item">
+            System
+            <div class="menu">
+                <a class="item" id="currentsystems">System Status</a>
+            </div>
+        </div>
+    </div>
+    <div class="pusher">
+        <!-- Register System-->
+        <div class="ui container" id="pushregisterdevice">
+            <div class="ui styled accordion">
+                <div class="active title">
+                    <i class="dropdown icon"></i> Register System
+                </div>
+                <div class="content">
+                    <form class="ui form">
+                        <div class="field">
+                            <label>System Name</label>
+                            <input name="user-name" placeholder="System Name" type="text" id="systemName">
+                        </div>
+                        <div class="field">
+                            <label>System Address</label>
+                            <input name="user-address" placeholder="System Address" type="text" id="systemAddress">
+                        </div>
+                        <button class="ui button" type="" id="registerDevice">Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Register User-->
+        <div class="ui container" id="pushregisteruser">
+            <div class="ui styled accordion">
+                <div class="active title">
+                    <i class="dropdown icon"></i> Register User
+                </div>
+                <div class="content">
+                    <form class="ui form">
+                        <div class="field">
+                            <label>User Name</label>
+                            <input name="user-name" placeholder="User Name" type="text" id="userName">
+                        </div>
+                        <div class="field">
+                            <label>User Address</label>
+                            <input name="user-address" placeholder="User Address" type="text" id="userAddress">
+                        </div>
+                        <button class="ui button" type="" id="registerUser">Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Requests -->
+        <div class="ui container">
+            <div id="pushrequests">
+                <table class="ui compact celled definition table" id="requesttable">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Request Index</th>
+                            <th>Requestor Address</th>
+                            <th>System Address</th>
+                        </tr>
+                    </thead>
+                    <tbody id="requesttablebody">
+                        <!--<tr class="requestrow">
+                            <td class="collapsing">
+                                <div class="ui fitted slider checkbox">
+                                    <input type="checkbox">
+                                    <label></label>
+                                </div>
+                            </td>
+                            <td>1</td>
+                            <td>123</td>
+                            <td>345</td>
+                        </tr>
+                        <tr class="requestrow">
+                            <td class="collapsing">
+                                <div class="ui fitted slider checkbox">
+                                    <input type="checkbox">
+                                    <label></label>
+                                </div>
+                            </td>
+                            <td>2</td>
+                            <td>623</td>
+                            <td>545</td>
+                        </tr>
+                        <tr class="requestrow">
+                            <td class="collapsing">
+                                <div class="ui fitted slider checkbox">
+                                    <input type="checkbox">
+                                    <label></label>
+                                </div>
+                            </td>
+                            <td>3</td>
+                            <td>823</td>
+                            <td>345</td>
+                        </tr>-->
+                    </tbody>
+                    <tfoot class="full-width">
+                        <tr>
+                            <th></th>
+                            <th colspan="4">
+                                <div class="ui small button" id="approverequests">
+                                    Approve
+                                </div>
+                                <!--<div class="ui small  disabled button">
+                                    Approve All
+                                </div>-->
+                                <a id="requestSync"><i id="sync" class="sync icon"></i></a>
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <!-- Systems -->
+        <div class="ui container">
+            <div id="pushsystems">
+                <div class="ui menu top">
+                    <a class="active item" data-tab="edit">All Systems</a>
+                    <a class="item" data-tab="userhis">All Users</a>
+                    <a class="item" data-tab="summary">Revoked Systems</a>
+                </div>
+                <div class="ui active tab" data-tab="edit">
+                    <div class="ui styled accordion" id="systemlist">
+                        <!--<div class="title">
+                            <i class="dropdown icon"></i> System 1
+                        </div>
+                        <div class="content">
+                            <table class="ui striped table">
+                                <thead>
+                                    <tr>
+                                        <th>User Name</th>
+                                        <th>User Address</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>User 1</td>
+                                        <td>123</td>
+                                    </tr>
+                                    <tr>
+                                        <td>User 2</td>
+                                        <td>234</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="title">
+                            <i class="dropdown icon"></i> System 2
+                        </div>
+                        <div class="content">
+                            <table class="ui striped table">
+                                <thead>
+                                    <tr>
+                                        <th>User Name</th>
+                                        <th>User Address</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>User 1</td>
+                                        <td>123</td>
+                                    </tr>
+                                    <tr>
+                                        <td>User 2</td>
+                                        <td>234</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="title">
+                            <i class="dropdown icon"></i> System 3
+                        </div>
+                        <div class="content">
+                            <table class="ui striped table">
+                                <thead>
+                                    <tr>
+                                        <th>User Name</th>
+                                        <th>User Address</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>User 1</td>
+                                        <td>123</td>
+                                    </tr>
+                                    <tr>
+                                        <td>User 2</td>
+                                        <td>234</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>-->
+                    </div>
+                </div>
+                <div class="ui tab" data-tab="userhis" id="UserTab">
+                    <table class="ui striped table" id="UserList">
+                        <thead>
+                            <tr>
+                                <th>User Name</th>
+                                <th>User Address</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- <tr>
+                                <td>User 1</td>
+                                <td>123</td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="ui tab" data-tab="summary" id="revokedSystemTab">
+                    <table class="ui compact celled definition table" id="revokedSystemlist">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>System Name</th>
+                                <th>System Address</th>
+                            </tr>
+                        </thead>
+                        <tbody id="revokedTable">
+                            <!--<tr>
+                                <td class="collapsing">
+                                    <div class="ui fitted slider checkbox">
+                                        <input type="checkbox">
+                                        <label></label>
+                                    </div>
+                                </td>
+                                <td>123</td>
+                                <td>345</td>
+                            </tr>
+                            <tr>
+                                <td class="collapsing">
+                                    <div class="ui fitted slider checkbox">
+                                        <input type="checkbox">
+                                        <label></label>
+                                    </div>
+                                </td>
+                                <td>623</td>
+                                <td>545</td>
+                            </tr>
+                            <tr>
+                                <td class="collapsing">
+                                    <div class="ui fitted slider checkbox">
+                                        <input type="checkbox">
+                                        <label></label>
+                                    </div>
+                                </td>
+                                <td>823</td>
+                                <td>345</td>
+                            </tr>-->
+                        </tbody>
+                        <tfoot class="full-width">
+                            <tr>
+                                <th></th>
+                                <th colspan="4">
+                                    <div class="ui small button" id="unlocksystem">
+                                        Unlock
+                                    </div>
+                                    <!--<div class="ui small  disabled button">
+                                        Unlock All
+                                    </div>-->
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+</body>
+
+</html>

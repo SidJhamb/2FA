@@ -1,0 +1,230 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="apple-touch-icon" href="icon.png">
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+    <!-- <script src="{{url_for('static',filename='web3.min.js')}}"></script> -->
+    <script src="{{url_for('static',filename='sha256.js')}}"></script>
+    <script defer="defer" src="{{url_for('static',filename='user.js')}}"></script>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.1/build/alertify.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.1/build/css/alertify.min.css" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.1/build/css/themes/default.min.css" />
+    <style type="text/css">
+    .pusher {
+        padding-top: 100px;
+    }
+
+    .side-by-side {
+        float: left;
+        padding: 0px 30px;
+    }
+
+    #ew {
+        margin-top: 20px;
+    }
+
+    #pushsystems {
+        width: 500px;
+    }
+
+    #sync {
+        margin-left: 295px;
+    }
+
+    #otparea {
+        margin-left: 95px;
+        width: 198px;
+    }
+
+    #Reset {
+        margin-left: 95px;
+        width: 198px;
+    }
+
+    #Insert {
+        margin-left: 95px;
+        width: 198px;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="ui left thin visible vertical inverted sidebar menu">
+        <div class="item">
+            System
+            <div class="menu">
+                <a class="active item" id="currentsystems">System Status</a>
+            </div>
+        </div>
+        <div class="item">
+            Token
+            <div class="menu">
+                <a class="item" id="otpgeneration">OTP Generation</a>
+            </div>
+        </div>
+    </div>
+    <div class="pusher">
+        <!-- Systems -->
+        <div class="ui container">
+            <div id="pushsystems">
+                <div class="ui top menu">
+                    <a class="active item" data-tab="edit">My Systems</a>
+                    <a class="item" data-tab="summary">All Systems</a>
+                </div>
+                <div class="ui active tab" data-tab="edit">
+                    <table class="ui striped table" id="mysystems">
+                        <thead>
+                            <tr>
+                                <th>System Name</th>
+                                <th>System Address</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- <tr>
+                                <td>System 1</td>
+                                <td>123</td>
+                            </tr>
+                            <tr>
+                                <td>System 2</td>
+                                <td>234</td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="ui tab" data-tab="summary">
+                    <table class="ui compact celled definition table" id="remainingsystems">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>System Name</th>
+                                <th>System Address</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!--<tr>
+                                <td class="collapsing">
+                                    <div class="ui fitted slider checkbox">
+                                        <input type="checkbox">
+                                        <label></label>
+                                    </div>
+                                </td>
+                                <td>123</td>
+                                <td>345</td>
+                            </tr>
+                            <tr>
+                                <td class="collapsing">
+                                    <div class="ui fitted slider checkbox">
+                                        <input type="checkbox">
+                                        <label></label>
+                                    </div>
+                                </td>
+                                <td>623</td>
+                                <td>545</td>
+                            </tr>
+                            <tr>
+                                <td class="collapsing">
+                                    <div class="ui fitted slider checkbox">
+                                        <input type="checkbox">
+                                        <label></label>
+                                    </div>
+                                </td>
+                                <td>823</td>
+                                <td>345</td>
+                            </tr>
+                        </tbody>-->
+                            <tfoot class="full-width">
+                                <tr>
+                                    <th></th>
+                                    <th colspan="4">
+                                        <div class="ui small button" id="requestsystems">
+                                            Request
+                                        </div>
+                                        <!--<div class="ui small  disabled button">
+                                            Request All
+                                        </div>-->
+                                        <a><i id="sync" class="sync icon"></i></a>
+                                    </th>
+                                </tr>
+                            </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- OTP generation -->
+        <div class="ui container" id="otp">
+            <!--<div class="side-by-side" id="ew">
+                <form>
+                    <textarea placeholder="First name"></textarea>
+                    <p>
+                        <button class="ui button">
+                            Generate
+                        </button>
+                        <button id="reset" class="ui button">
+                            Reset
+                        </button>
+                    </p>
+                </form>
+            </div>
+            <br>
+            <div class="side-by-side" id="form">
+                <div class="ui form">
+                    <div class="inline field">
+                        <label>Select System</label>
+                        <div class="ui selection dropdown">
+                            <input name="gender" type="hidden">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">System</div>
+                            <div class="menu">
+                                <div class="item" data-value="1">System 1</div>
+                                <div class="item" data-value="0">System 2</div>
+                            </div>
+                        </div>
+                        <button class="ui button">
+                            Insert in Blockchain
+                        </button>
+                    </div>
+                </div>
+            </div>-->
+            <div class="ui form">
+                <div class="inline field">
+                    <label>Select System</label>
+                    <!--<div class="ui selection dropdown">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">System</div>
+                        <div class="menu" id="systemlist">-->
+                    <!--<div class="item" data-value="1">System 1</div>
+                            <div class="item" data-value="0">System 2</div>-->
+                    <!--</div>
+                    </div>-->
+                    <select id="systemDrop">
+                        <!--<option value="1">Mr</option>
+                        <option value="2">Mrs</option>
+                        <option value="3">Ms</option>
+                        <option value="4">Dr</option>
+                        <option value="5">Prof</option>-->
+                    </select>
+                </div>
+                <div class="field">
+                    <input name="otp" placeholder="OTP" id="otparea" type="text">
+                </div>
+                <div class="side-by-side" id="ew">
+                    <button class="ui button" type="" id="Set">Generate OTP</button>
+                    <button class="ui button" type="" id="Reset">Reset OTP</button>
+                </div>
+                <br>
+                <button class="ui button" type="" id="Insert">Insert in Blockchain</button>
+            </div>
+        </div>
+</body>
+
+</html>
